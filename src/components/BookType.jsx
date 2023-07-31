@@ -10,7 +10,7 @@ const BookType = () => {
   const [favList, setFavList] = useState([]);
   const [wishList, setWishList] = useState([]);
   const [filteredBookList, setFilteredBookList] = useState(bookList);
-  const [value, setValue] = useState([1, 2]);
+  const [value, setValue] = useState([]);
 
   useEffect(() => {
     fetch('https://gist.githubusercontent.com/MathisDYKDan/76bc73ec77481ccb82677cc7c0d8b524/raw/a23c99027b9bfc1bfdb22e22ddcb4301a5f870ee/books.json')
@@ -71,8 +71,27 @@ const BookType = () => {
     setFilteredBookList(filteredBooks);
   }
 
-  const handleChange = (event) => {
-    console.log(event);
+  const handleChange = (val) => {
+    // console.log(val)
+    if (val.includes(1) && value.includes(1)) {
+      console.log('FAVORIS')
+    }
+    if (value.includes(val)) {
+      setValue((prevValue) => {
+        const updatedValue = prevValue.filter((value) => value !== val);
+        console.log("J'enlève le filtre")
+        console.log(updatedValue)
+        return updatedValue;
+      })
+    } else {
+      setValue((prevValue) => {
+        const updatedValue = [...prevValue, val];
+        console.log("J'ajoute le filtre")
+        console.log(updatedValue)
+        return updatedValue;
+      });
+    }
+    // console.log(value)
   }
 
   return (
